@@ -2,6 +2,8 @@ package com.solucaotecnologia.DESAFIO.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "tb_participante")
 public class Participante {
@@ -14,6 +16,15 @@ public class Participante {
 
     @Column(unique = true)
     private String email;
+
+    @ManyToMany
+    @JoinTable(
+            name = "participante_atividade",
+            joinColumns = @JoinColumn(name = "participante_id"),
+            inverseJoinColumns = @JoinColumn(name = "atividade_id")
+    )
+    private Set<Atividade> atividades;
+
 
     public Participante() {
 
@@ -48,4 +59,10 @@ public class Participante {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Set<Atividade> getAtividades() {
+        return atividades;
+    }
+
+
 }

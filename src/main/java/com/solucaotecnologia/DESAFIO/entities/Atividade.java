@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_atividade")
@@ -21,9 +22,11 @@ public class Atividade {
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
-
     @OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL)
     private List<Bloco> blocos = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "atividades")
+    private Set<Participante> participantes;
 
     public Atividade() {
 
@@ -66,5 +69,17 @@ public class Atividade {
 
     public void setPreco(Double preco) {
         this.preco = preco;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public List<Bloco> getBlocos() {
+        return blocos;
+    }
+
+    public Set<Participante> getParticipantes() {
+        return participantes;
     }
 }
